@@ -1,13 +1,50 @@
-import requests, html, random
+import os, requests, html, random, pickle
 
 def save_question_answer(username, question, actual_answer, category, difficulty):
-    with open("data/" + username + ".txt", "a") as userfile:
-        userfile.writelines("1. Question: " + question + "\n" +
-                            "2. Correct Answer: " + actual_answer + "\n" +
-                            "3. Category: " + category + "\n" +
-                            "4. Difficulty: " + difficulty + "\n")
+    '''
+    Save the current question, correct answer, category and difficulty level
+    so that we can later add these details to the user file of questions and answers.
+    We need to store this in a file so that the data persists after the answer is submitted
+    '''
+    with open("data/" + username + "_current.txt", "w") as userfile:
+        userfile.writelines(question + "\n" +
+                            actual_answer + "\n" +
+                            category + "\n" +
+                            difficulty + "\n")
+
+def save_user_answer(username, user_answer):
+    '''
+    Append the user's answer to the current question so that it can later be
+    used to compare to the correct answer and calculate a score
+    '''
+    with open("data/" + username + "_current.txt", "a") as userfile:
+        userfile.writelines(user_answer + "\n")
+
+def commit_user_data(username):
+    '''
+    Store question and answer details in the user file in the form of one list per line.
+    The list structure facilitates parsing the file later on when calculating scores
+    '''
+    user_data = []
+    with open("data/" + username + "_current.txt", "r") as userfile:
+        user_data = [line.strip() for line in userfile.readlines()]
+
+    # The current user file should contain five lines if the user has attempted an answer,
+    # any less and it means the user has refreshed the page without answering, in which
+    # case we don't need to record the interaction in the user file
+    if len(user_data) == 5:
+        with open("data/" + username + ".txt", "ab") as fp:   #Pickling
+            pickle.dump(user_data, fp)
+
+        with open("data/" + username + ".txt", "a") as fp:
+            fp.write("\n")
 
 def get_question_answer(username, api_url):
+    '''
+    Query the opentdb API to retrieve a single random question and answer.
+    The API is publicly available under the Creative Commons Attribution-ShareAlike 4.0
+    International License
+    '''
     question_answer = {}
     json_data = requests.get(api_url).json()
     json_status = json_data['response_code']
@@ -19,8 +56,8 @@ def get_question_answer(username, api_url):
         question_answer['correct_answer'] = html.unescape(question_answer['correct_answer'])
 
         # Combine correct answer and incorrect answers to facilitate rendering
-        # all possible answers on the web page. Also randomise so that the position
-        # of the correct answer does not follow a pattern
+        # all possible answers on the web page. Also randomise the order so that
+        # the position of the correct answer does not follow a pattern
         question_answer['all_answers'] = list(question_answer['incorrect_answers'])
         question_answer['all_answers'].append(question_answer['correct_answer'])
         random.shuffle(question_answer['all_answers'])
@@ -30,21 +67,55 @@ def get_question_answer(username, api_url):
                              question_answer['difficulty'])
     return question_answer
 
-def correct_answer(correct_answer, user_answer):
-    if correct_answer == user_answer:
-        return True
-    else:
-        return False
+def calculate_user_scores(username):
+    scores = {}
+    score = 0
+    score_entertainment = 0
 
-def calculate_user_score(username):
-    pass
+    # Each list in the list of lists returned by read_user_question_answer
+    # represents a question, correct answer and user answer. By looping through
+    # these we can accumate scores for the logged in user.
+    for list_element in read_user_question_answer(username):
+        # Scores awarded for each question are weighted according to difficulty
+        if list_element[3] == "hard":
+            score_value = 5
+        elif list_element[3] == "medium":
+            score_value = 3
+        else:
+            score_value = 1
+        # Given a correct answer, established by comparing the actual answer with the
+        # user supplied answer, accumulate scores according to the weighted value.
+        # Split scores by category as well as an overall score.
+        if list_element[1] == list_element[4]:
+            score += score_value
+            if "Music" in list_element[2]:
+                score_music += score_value
+            elif "Sports" in list_element[2]:
+                score_sports += score_value
+            elif "Science" in list_element[2]:
+                score_science += score_value
+            elif "Sports" in list_element[2]:
+                score_sports += score_value
+            elif "Sports" in list_element[2]:
+                score_sports += score_value
+            elif "Entertainment" in list_element[2]:
+                score_entertainment += score_value
+            elif "General Knowledge" in list_element[2]:
+                score_general += score_value
 
-def save_user_answer(username, user_answer):
-    with open("data/" + username + ".txt", "a") as userfile:
-        userfile.writelines("5. User Answer: " + user_answer + "\n")
+    scores = {"overall": score, "Entertainment": score_entertainment}
+    return scores
 
 def read_user_question_answer(username):
-    pass
+    user_qa = []
+    with open("data/" + username + ".txt", "rb") as fp:   # Unpickling
+        user_qa.append(pickle.load(fp))
+        for line in fp:
+            try:
+                user_qa.append(pickle.load(fp))
+            except:
+                pass
+    return user_qa
 
 def choose_category_icon(category):
     fa_icon_prefix = '<i class="fas '
@@ -54,19 +125,27 @@ def choose_category_icon(category):
         fa_class = "fa-question"
     elif category == "Sports":
         fa_class = "fa-table-tennis"
+    elif category == "Art":
+        fa_class = "fa-image"
     elif "Music" in category:
         fa_class = "fa-music"
     elif "Video Games" in category:
         fa_class = "fa-gamepad"
     elif "Vehicles" in category:
         fa_class = "fa-bus"
+    elif "Geography" in category:
+        fa_class = "fa-globe"
+    elif "History" in category:
+        fa_class = "fa-history"
+    elif "Politics" in category:
+        fa_class = "fa-users"
     elif "Computers" in category:
         fa_class = "fa-desktop"
     elif "Science" in category:
         fa_class = "fa-flask"
     elif "Animals" in category:
         fa_class = "fa-kiwi-bird"
-    elif category.startswith("Entertainment"):
+    elif "Entertainment" in category:
         fa_class = "fa-film"
     else:
         fa_class = "fa-question"

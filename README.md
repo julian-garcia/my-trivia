@@ -4,7 +4,7 @@ answers, and calculate a score. Includes a top scoring league table.
 
 # Usage Instructions
 ## Installation
-## Deployment
+## Deployment (Heroku)
 
 # Languages and Frameworks
 The python micro framework Flask was used to implement this trivia quiz app.

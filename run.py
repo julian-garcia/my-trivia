@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
 # Create all database tables
 db.create_all()
 
-# Setup Flask-User and specify the User data-model
+# Setup Flask-User and specify the simplified User data-model
 user_manager = UserManager(app, db, User)
 
 @app.route('/', methods=['POST','GET'])
@@ -35,7 +35,8 @@ def index():
     # Check user supplied answer and save if correct or render on screen if incorrect
     if request.method == "POST":
         trivia.save_user_answer(current_user.username,
-                                 request.form["answers"])
+                                request.form["answers"])
+        trivia.commit_user_data(current_user.username)
         # print(request.form["answers"] , qa_dict['correct_answer'])
         # if trivia.correct_answer(qa_dict['correct_answer'], request.form["answers"]):
         #     print('Blah')
@@ -47,12 +48,11 @@ def index():
 
     return render_template('index.html', question_answer = qa_dict, cat_icon = cat_icon)
 
-# The Members page is only accessible to authenticated users via the @login_required decorator
 @app.route('/scores')
 @login_required    # User must be authenticated
 def scores():
-    # String-based templates
-    return render_template('scores.html')
+    score = trivia.calculate_user_scores(current_user.username)
+    return render_template('scores.html', score = score)
 
 if __name__ == "__main__":
     # int(os.getenv('PORT'))
