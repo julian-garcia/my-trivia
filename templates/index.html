@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>{{ question_answer['category'] }} {{ cat_icon|safe }}</div>
+<p>{{ question_answer['question'] }}</p>
+<form method="POST">
+  <input type="hidden" name="question" value="{{ question_answer['question'] }}">
+  <input type="hidden" name="category" value="{{ question_answer['category'] }}">
+  <input type="hidden" name="difficulty" value="{{ question_answer['difficulty'] }}">
+  {% for answer in question_answer['all_answers'] %}
+  <input type="radio" name="answers" value="{{ answer }}">{{ answer }}<br>
+  {% endfor %}
+  <button>Submit</button>
+</form>
+{% endblock %}
