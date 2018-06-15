@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 from flask_login import current_user
@@ -37,22 +37,31 @@ def index():
         trivia.save_user_answer(current_user.username,
                                 request.form["answers"])
         trivia.commit_user_data(current_user.username)
-        # print(request.form["answers"] , qa_dict['correct_answer'])
-        # if trivia.correct_answer(qa_dict['correct_answer'], request.form["answers"]):
-        #     print('Blah')
-        # else:
-        #     print('value')
 
     qa_dict = trivia.get_question_answer(current_user.username, API_URL)
     cat_icon = trivia.choose_category_icon(qa_dict['category'])
+    latest_qa = trivia.read_user_question_answer(current_user.username)[-1]
 
-    return render_template('index.html', question_answer = qa_dict, cat_icon = cat_icon)
+    return render_template('index.html', question_answer = qa_dict,
+                                         cat_icon = cat_icon,
+                                         latest_qa = latest_qa)
 
 @app.route('/scores')
 @login_required    # User must be authenticated
 def scores():
-    score = trivia.calculate_user_scores(current_user.username)
-    return render_template('scores.html', score = score)
+    scores = trivia.calculate_user_scores(current_user.username)
+    return render_template('scores.html', scores = scores)
+
+@app.route('/leaderboard')
+def leader_board():
+    top_scores = trivia.leader_board(5)
+    return render_template('leader_board.html', top_scores = top_scores)
+
+@app.route('/suggestion', methods=['POST','GET'])
+def suggestion():
+    if request.method == "POST":
+        flash("Thanks {}, we have received your suggestion".format(request.form["fullname"]))
+    return render_template('suggestion.html', page_title = "My Trivia - Suggestion")
 
 if __name__ == "__main__":
     # int(os.getenv('PORT'))

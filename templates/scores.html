@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
     <h2>Scores</h2>
-    {{ score }}
+    {{ scores.overall }}
+    {{ scores.entertainment }}
+    {{ scores.music }}
+    {{ scores.sports }}
+    {{ scores.science }}
+    {{ scores.vehicles }}
+    {{ scores.computers }}
+    {{ scores.general }}
+    {{ scores.other }}
 {% endblock %}

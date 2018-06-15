@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ top_scores }}
+{% for score in top_scores %}
+  {{ score.username }}, {{ score.score }}
+{% endfor %}
+
+{% endblock %}

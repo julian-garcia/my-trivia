@@ -1,9 +1,11 @@
 # My Trivia
-A Flask based trivia based website to deliver questions to users, log their
+A Flask based trivia website to deliver questions to users, log their
 answers, and calculate a score. Includes a top scoring league table.
 
 # Usage Instructions
 ## Installation
+git clone
+pip install -r requirements.txt
 ## Deployment (Heroku)
 
 # Languages and Frameworks
@@ -19,10 +21,14 @@ should open the file "Mockup.xml" via https://draw.io.
 
 # Testing
 Question and answer is available
-Category image corresponds to question Category
+Correct answer being correctly identified
+Incorrect answer being correctly identified
+Category icon class corresponds to question category
 Question has not already been asked previously
 Relevant guess displayed after incorrect attempt
 Category scores add up to total score
+Previous question/answer selected for rendering
+Top n scorers identified for the leaderboard
 
 # APIs
 For trivia question and answer content the "Open Trivia Database" API is being
