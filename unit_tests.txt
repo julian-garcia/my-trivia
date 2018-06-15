@@ -1,0 +1,13 @@
+Verify that the correct icon class is selected according to the question category <i class="fas fa-table-tennis"></i>
+Check that correct answers can be identified
+Check that there are no duplicate questions for a user 25 25
+Check that incorrect answers can be identified
+Check that the right number of users appear on the leader board [{'username': 'abcd', 'score': 18}, {'username': 'ijkl', 'score': 18}, {'username': 'mnop', 'score': 18}]
+Check that we are able to access the previously asked/answered question ['Europa Universalis is a strategy video game based on which French board game?', 'Europa Universalis', 'Entertainment: Board Games', 'medium', 'Europa!']
+Check that a question and answer are successfully retrieved from the API {'category': 'Politics', 'type': 'multiple', 'difficulty': 'hard', 'question': '"Yes, America Can!" was this United States politician\'s de facto campaign slogan in 2004.', 'correct_answer': 'George W. Bush', 'incorrect_answers': ['John Kerry', 'Barack Obama', 'Al Gore'], 'all_answers': ['Barack Obama', 'Al Gore', 'George W. Bush', 'John Kerry']}
+Manually calculate the score and check that the function calculated score matches 18 18 18
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.401s
+
+OK

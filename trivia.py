@@ -59,7 +59,7 @@ def get_question_answer(username, api_url):
         question_answer['correct_answer'] = html.unescape(question_answer['correct_answer'])
 
         # Check that the current question hasn't been previously answered by the logged in user
-        # If it has been, then re-query the API until
+        # If it has been, then re-query the API by recursion until we have an unasked question
         previous_questions = [question[0] for question in read_user_question_answer(username)]
         if question_answer['question'] in previous_questions:
             get_question_answer(username, api_url)
@@ -168,7 +168,8 @@ def leader_board(n):
             uname = filename.split('/')[1].split('.')[0]
             uscore = calculate_user_scores(uname)['overall']
             top_scores.append({"username":uname, "score":uscore})
-    descending_top_scores = sorted(top_scores, key=itemgetter("score"), reverse=True)
+    # Sorting by 2 keys: descending score (primary) and ascending username (secondary)
+    descending_top_scores = sorted(top_scores, key=lambda k: (-k['score'], k['username']))
     return descending_top_scores[:n]
 
 def choose_category_icon(category):

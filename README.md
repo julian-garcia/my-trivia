@@ -5,7 +5,11 @@ answers, and calculate a score. Includes a top scoring league table.
 # Usage Instructions
 ## Installation
 git clone
+source bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
+## Running Locally
+python run.py
 ## Deployment (Heroku)
 
 # Languages and Frameworks
@@ -25,9 +29,9 @@ Correct answer being correctly identified
 Incorrect answer being correctly identified
 Category icon class corresponds to question category
 Question has not already been asked previously
-Relevant guess displayed after incorrect attempt
+Score calculation is correct
 Category scores add up to total score
-Previous question/answer selected for rendering
+Previous question/answer is accessible for rendering
 Top n scorers identified for the leaderboard
 
 # APIs
