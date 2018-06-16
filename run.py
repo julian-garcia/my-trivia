@@ -44,18 +44,19 @@ def index():
 
     return render_template('index.html', question_answer = qa_dict,
                                          cat_icon = cat_icon,
-                                         latest_qa = latest_qa)
+                                         latest_qa = latest_qa,
+                                         page_title = "My Trivia")
 
 @app.route('/scores')
 @login_required    # User must be authenticated
 def scores():
     scores = trivia.calculate_user_scores(current_user.username)
-    return render_template('scores.html', scores = scores)
+    return render_template('scores.html', scores = scores, page_title = "My Trivia - Scores")
 
 @app.route('/leaderboard')
 def leader_board():
     top_scores = trivia.leader_board(5)
-    return render_template('leader_board.html', top_scores = top_scores)
+    return render_template('leader_board.html', top_scores = top_scores, page_title = "My Trivia - Leader Board")
 
 @app.route('/suggestion', methods=['POST','GET'])
 def suggestion():

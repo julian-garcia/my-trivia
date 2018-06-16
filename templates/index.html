@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>{{ question_answer['category'] }} {{ cat_icon|safe }}</div>
+{% from "_macros.html" import category_icon %}
+{{ category_icon(question_answer['category'], cat_icon) }}
 <p>{{ question_answer['question'] }}</p>
 <form method="POST">
   <input type="hidden" name="question" value="{{ question_answer['question'] }}">

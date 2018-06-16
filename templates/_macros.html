@@ -1,0 +1,6 @@
+{% macro category_icon(cat, cat_icon) -%}
+    <div class="col-12 col-md-4">
+      <h2>{{ cat }}</h2>
+      {{ cat_icon|safe }}
+    </div>
+{%- endmacro %}
