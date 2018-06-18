@@ -1,16 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-{% from "_macros.html" import category_icon %}
-{{ category_icon(question_answer['category'], cat_icon) }}
-<p>{{ question_answer['question'] }}</p>
-<form method="POST">
-  <input type="hidden" name="question" value="{{ question_answer['question'] }}">
-  <input type="hidden" name="category" value="{{ question_answer['category'] }}">
-  <input type="hidden" name="difficulty" value="{{ question_answer['difficulty'] }}">
-  {% for answer in question_answer['all_answers'] %}
-  <input type="radio" name="answers" value="{{ answer }}">{{ answer }}<br>
-  {% endfor %}
-  <button>Submit</button>
-</form>
-<p>{{ latest_qa }}</p>
+{% from "_macros.html" import category_icon, question, answer_form %}
+
+<div class="row section">
+  <div class="col-12 col-md-4 section-col section-col--category">
+    {{ category_icon(question_answer['category'], cat_icon) }}
+  </div>
+  <div class="col-12 col-md-4 section-col section-col--question">
+    {{ question(question_answer['question']) }}
+  </div>
+  <div class="col-12 col-md-4 section-col section-col--answers">
+    {{ answer_form(question_answer['question'], question_answer['category'],
+                   question_answer['difficulty'], question_answer['all_answers']) }}
+  </div>
+</div>
+<div class="row section section--prev-question justify-content-center pl-0 pl-md-5 pr-0 pr-md-5">
+  <div class="col-12 col-md-4 text-center">
+    <h3 class="footer-heading">Previous Question</h3>
+    <p>{{ latest_qa[0] }}</p>
+  </div>
+  <div class="col-12 col-md-4 text-center">
+    <h3 class="footer-heading">Correct Answer</h3>
+    <p>{{ latest_qa[1] }}</p>
+  </div>
+  <div class="col-12 col-md-4 text-center prev_answer">
+    <h3 class="footer-heading">Your Answer</h3>
+    <p>{{ latest_qa[4] }}<br>
+    {% if latest_qa[1] == latest_qa[4] %}
+      <i class="fas fa-check"></i>
+    {% else %}
+      <i class="fas fa-times"></i>
+    {% endif %}
+    </p>
+  </div>
+</div>
+
 {% endblock %}

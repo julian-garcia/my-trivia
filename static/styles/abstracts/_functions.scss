@@ -1,0 +1,15 @@
+@function set_text_color($colour) {
+  @if (lightness($colour) > 50) {
+    @return #000000;
+  } @else {
+    @return #ffffff;
+  }
+}
+
+@function set_shadow_color($colour) {
+  @if (lightness($colour) > 50) {
+    @return #ffffff;
+  } @else {
+    @return #000000;
+  }
+}

@@ -9,45 +9,68 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Faustina:400,700|Merienda" rel="stylesheet">
-  <!-- font-family: 'Faustina', serif; font-family: 'Merienda', cursive; -->
+  <link rel="stylesheet" href="/static/styles/main.min.css">
 </head>
 
 <body>
-  <div class="site-title">
-    <h1>My Trivia</h1>
-  </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <a class="navbar-brand" href="#"></a>
+  <header class="row justify-content-center d-none d-md-flex text-center site-title">
+    <div class="col-12 col-md-8">
+      <h1>
+        <span class="title-block">M</span>
+        <span class="title-block">y </span>
+        <span class="title-block space">T</span>
+        <span class="title-block">r</span>
+        <span class="title-block">i</span>
+        <span class="title-block">v</span>
+        <span class="title-block">i</span>
+        <span class="title-block">a</span>
+      </h1>
+    </div>
+  </header>
+
+  <nav class="navbar navbar-expand-md navbar-light bg-white">
+    <a class="navbar-brand d-block d-md-none" href="/">My Trivia</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav nav nav-justified w-100">
-        <li class="nav-item">
-          <a class="nav-item nav-link" href="/">Home</a>
+        <li class="nav-item nav-item--home">
+          <a class="nav-item nav-link nav-link--home" href="/"><i class="fas fa-home"></i></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/user/sign-in">Sign In</a>
+        <li class="nav-item nav-item--signin">
+          {% if user|length == 0 %}
+          <a class="nav-link nav-link--signin" href="/user/sign-in">Sign In</a> {% else %}
+          <a class="nav-link nav-link--signin" href="/user/sign-out">Sign Out</a> {% endif %}
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/leaderboard">Leader Board</a>
+        <li class="nav-item nav-item--leaderboard">
+          <a class="nav-link nav-link--leaderboard" href="/leaderboard">Leader Board</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/scores">My Scores</a>
+        <li class="nav-item nav-item--scores">
+          <a class="nav-link nav-link--scores" href="/scores">My Scores</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/suggestion">Suggest a Question</a>
+        <li class="nav-item nav-item--suggestion">
+          <a class="nav-link nav-link--suggestion" href="/suggestion">Suggest a Question</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+        <li class="nav-item nav-item--contact">
+          <a class="nav-link nav-link--contact" href="#"><i class="far fa-envelope"></i></a>
         </li>
       </ul>
     </div>
   </nav>
-  <main class="container">
+  <main class="container-fluid quiz-container">
     {% block content %}{% endblock %}
   </main>
+  <footer>
+    <div class="row">
+      <div class="col-12 col-md-4"></div>
+      <div class="col-12 col-md-4 text-center">
+        <p>Copyright &copy; Julian Garcia</p>
+      </div>
+      <div class="col-12 col-md-4"></div>
+    </div>
+  </footer>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>

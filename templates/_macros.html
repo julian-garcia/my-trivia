@@ -1,6 +1,33 @@
 {% macro category_icon(cat, cat_icon) -%}
-    <div class="col-12 col-md-4">
-      <h2>{{ cat }}</h2>
-      {{ cat_icon|safe }}
+  <h2 class="category-title">{{ cat }}</h2>
+  {{ cat_icon|safe }}
+{%- endmacro %}
+
+{% macro question(question) -%}
+  <div class="post-it-note">
+    <img src="/static/images/pin.svg" class="pin">
+    <h3>{{ question }}</h3>
+  </div>
+{%- endmacro %}
+
+{% macro answer_form(question, category, difficulty, all_answers) -%}
+  <form class="answers-form" method="POST">
+    <input class="answer-option" type="hidden" name="question" value="{{ question }}">
+    <input class="answer-option" type="hidden" name="category" value="{{ category }}">
+    <input class="answer-option" type="hidden" name="difficulty" value="{{ difficulty }}">
+    {% for answer in all_answers %}
+      {% if loop.index > 1 %}
+      <hr>
+      {% endif %}
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="a{{loop.index}}" name="answers" value="{{ answer }}">
+        <label class="form-check-label" for="a{{loop.index}}">
+          {{ answer }}
+        </label>
+      </div>
+    {% endfor %}
+    <div class="text-center">
+      <button class="btn">Submit</button>
     </div>
+  </form>
 {%- endmacro %}

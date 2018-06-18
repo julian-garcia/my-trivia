@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Scores</h2>
-    {{ scores.overall }}
-    {{ scores.entertainment }}
-    {{ scores.music }}
-    {{ scores.sports }}
-    {{ scores.science }}
-    {{ scores.vehicles }}
-    {{ scores.computers }}
-    {{ scores.general }}
-    {{ scores.other }}
+<div class="row section">
+  <h2>Scores</h2>
+  {{ scores.overall }}
+  {{ scores.entertainment }}
+  {{ scores.music }}
+  {{ scores.sports }}
+  {{ scores.science }}
+  {{ scores.vehicles }}
+  {{ scores.computers }}
+  {{ scores.general }}
+  {{ scores.other }}
+</div>
 {% endblock %}

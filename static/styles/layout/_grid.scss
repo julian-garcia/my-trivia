@@ -1,0 +1,33 @@
+.quiz-container {
+  padding: 0;
+}
+
+.section {
+  margin: 0;
+  @media ($width-name:$device-md-width) {
+    margin: 1rem 0 2rem 0;
+  }
+}
+
+.section-col {
+  margin: 0 0 1rem 0;
+  padding-top: 1rem;
+  @media ($width-name:$device-md-width) {
+    margin: 2rem 0;
+  }
+}
+
+.section-col--question {
+  padding-top: 0;
+}
+
+.section-col--category  {
+  text-align: center;
+}
+
+.section--prev-question {
+  margin: 2rem 0;
+  padding: 1rem 0;
+  background-color: $colour-home;
+  color: #ffffff;
+}

@@ -1,0 +1,14 @@
+@include nav-item($colour-signin, 'signin');
+@include nav-item($colour-leaderboard, 'leaderboard');
+@include nav-item($colour-scores, 'scores');
+@include nav-item($colour-suggestion, 'suggestion');
+
+.nav-item--home i,
+.nav-item--contact i {
+  font-size: 30px;
+  color: $colour-home;
+}
+
+.nav-item {
+  padding-top: 10px;
+}

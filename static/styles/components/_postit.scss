@@ -1,0 +1,36 @@
+.pin {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.post-it-note {
+  position: relative;
+   padding: 1rem 2rem;
+   background: $colour-postit;
+   position: relative;
+   min-height: 10em;
+}
+.post-it-note:after {
+   content: "";
+   position: absolute;
+   bottom: -2em;
+   left: 0;
+   right: 2em;
+   border-width: 1em;
+   border-style: solid;
+   border-color: $colour-postit;
+}
+.post-it-note:before {
+   content: "";
+   position: absolute;
+   bottom: -2em;
+   right: 0;
+   border-width: 2em 2em 0 0;
+   border-style: solid;
+   border-color: $colour-postit-dark;
+}
+
+// .post-it-note class taken from codepen snippet https://codepen.io/jontroutman/pen/ihkvL

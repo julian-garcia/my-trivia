@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-{{ top_scores }}
-{% for score in top_scores %}
-  {{ score.username }}, {{ score.score }}
-{% endfor %}
+<div class="row section justify-content-center">
+  <div class="col-12 col-md-8">
+    <table class="mx-auto leaderboard-table">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for score in top_scores %}
+          <tr>
+            <td>{{ score.username }}</td>
+            <td>{{ score.score }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
 {% endblock %}

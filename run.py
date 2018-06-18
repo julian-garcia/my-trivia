@@ -42,7 +42,8 @@ def index():
     cat_icon = trivia.choose_category_icon(qa_dict['category'])
     latest_qa = trivia.read_user_question_answer(current_user.username)[-1]
 
-    return render_template('index.html', question_answer = qa_dict,
+    return render_template('index.html', user = current_user.username,
+                                         question_answer = qa_dict,
                                          cat_icon = cat_icon,
                                          latest_qa = latest_qa,
                                          page_title = "My Trivia")
@@ -51,18 +52,28 @@ def index():
 @login_required    # User must be authenticated
 def scores():
     scores = trivia.calculate_user_scores(current_user.username)
-    return render_template('scores.html', scores = scores, page_title = "My Trivia - Scores")
+    return render_template('scores.html', user = current_user.username, scores = scores,
+                                          page_title = "My Trivia - Scores")
 
 @app.route('/leaderboard')
 def leader_board():
     top_scores = trivia.leader_board(5)
-    return render_template('leader_board.html', top_scores = top_scores, page_title = "My Trivia - Leader Board")
+    if hasattr(current_user, 'username'):
+        user = current_user.username
+    else:
+        user = ""
+    return render_template('leader_board.html', user = user, top_scores = top_scores,
+                                                page_title = "My Trivia - Leader Board")
 
 @app.route('/suggestion', methods=['POST','GET'])
 def suggestion():
     if request.method == "POST":
         flash("Thanks {}, we have received your suggestion".format(request.form["fullname"]))
-    return render_template('suggestion.html', page_title = "My Trivia - Suggestion")
+    if hasattr(current_user, 'username'):
+        user = current_user.username
+    else:
+        user = ""
+    return render_template('suggestion.html', user = user, page_title = "My Trivia - Suggestion")
 
 if __name__ == "__main__":
     # int(os.getenv('PORT'))

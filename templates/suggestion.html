@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="POST">
-  <input type="text" name="fullname" required>
-  <input type="email" name="email" required>
-  <input type="text" name="question" required>
-  <input type="text" name="category" required>
-  <input type="text" name="difficulty" required>
-  <input type="text" name="answer1" required>
-  <button>Submit My Suggestion</button>
-</form>
+<div class="row section">
+  <form method="POST">
+    <input type="text" name="fullname" required>
+    <input type="email" name="email" required>
+    <input type="text" name="question" required>
+    <input type="text" name="category" required>
+    <input type="text" name="difficulty" required>
+    <input type="text" name="answer1" required>
+    <button>Submit My Suggestion</button>
+  </form>
+</div>
 {% endblock %}
