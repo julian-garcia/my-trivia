@@ -41,6 +41,15 @@ def commit_user_data(username):
         with open("data/" + username + ".txt", "a") as fp:
             fp.write("\n")
 
+def get_category_list(api_url):
+    '''
+    Get category list - to be used to build a drop down in the suggestions form
+    '''
+    categories = []
+    json_data = requests.get(api_url).json()
+    categories = [element['name'] for element in json_data['trivia_categories']]
+    return categories;
+
 def get_question_answer(username, api_url):
     '''
     Query the opentdb API to retrieve a single random question and answer.

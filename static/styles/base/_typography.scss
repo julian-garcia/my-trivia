@@ -9,6 +9,7 @@ h6, th, label, .site-title span {
 
 a,
 input,
+textarea,
 p,
 span, table, button {
   font-family: $base-font-family-title;
@@ -27,19 +28,19 @@ span, table, button {
   font-size: 40px;
 }
 
-.site-title h1 {
-  text-shadow: 1px 1px #ffffff;
-}
-
-.site-title .title-block {
-  background: rgba(0,0,0,0.8);
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  width:40px;
-  display: inline-block;
-}
-
-.site-title .title-block.space {
-  margin-left: 20px;
+.site-title {
+  h1 {
+    text-shadow: 1px 1px $colour-scores;
+  }
+  .title-block {
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    width:40px;
+    display: inline-block;
+  }
+  .title-block.space {
+    margin-left: 20px;
+  }
 }

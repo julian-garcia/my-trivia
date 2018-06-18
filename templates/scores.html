@@ -1,15 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row section">
-  <h2>Scores</h2>
-  {{ scores.overall }}
-  {{ scores.entertainment }}
-  {{ scores.music }}
-  {{ scores.sports }}
-  {{ scores.science }}
-  {{ scores.vehicles }}
-  {{ scores.computers }}
-  {{ scores.general }}
-  {{ scores.other }}
+<div class="row section justify-content-center">
+  <div class="col-12 col-md-2 section-col section-col--score text-center">
+    <h3>Overall Score</h3>
+    <h3>{{ scores.overall }}</h3>
+  </div>
+</div>
+<div class="row justify-content-center mb-0 mb-md-4">
+  <div class="col-12 col-md-2 section-col--score text-center">
+    <h5>Entertainment</h5>
+    <h5>{{ scores.entertainment }}</h5>
+  </div>
+  <div class="col-12 col-md-2 section-col--score text-center">
+    <h5>Music</h5>
+    <h5>{{ scores.music }}</h5>
+  </div>
+  <div class="col-12 col-md-2 section-col--score text-center">
+    <h5>Sports</h5>
+    <h5>{{ scores.sports }}</h5>
+  </div>
+  <div class="col-12 col-md-2 section-col--score text-center">
+    <h5>Science</h5>
+    <h5>{{ scores.science }}</h5>
+  </div>
+</div>
+<div class="row justify-content-center mb-0 mb-md-4">
+  <div class="col-12 col-md-2 section-col--score text-center">
+    <h5>Vehicles</h5>
+    <h5>{{ scores.vehicles }}</h5>
+  </div>
+  <div class="col-12 col-md-2 section-col--score text-center">
+    <h5>Computers</h5>
+    <h5>{{ scores.computers }}</h5>
+  </div>
+  <div class="col-12 col-md-2 section-col--score text-center">
+    <h5>General</h5>
+    <h5>{{ scores.general }}</h5>
+  </div>
+  <div class="col-12 col-md-2 section-col--score text-center">
+    <h5>Other</h5>
+    <h5>{{ scores.other }}</h5>
+  </div>
 </div>
 {% endblock %}

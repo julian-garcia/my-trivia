@@ -1,14 +1,65 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row section">
+<div class="row section justify-content-center">
+  <div class="col-md-8 ">
+  <p class="text-center">{{ message }}</p>
   <form method="POST">
-    <input type="text" name="fullname" required>
-    <input type="email" name="email" required>
-    <input type="text" name="question" required>
-    <input type="text" name="category" required>
-    <input type="text" name="difficulty" required>
-    <input type="text" name="answer1" required>
-    <button>Submit My Suggestion</button>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="fullname">Name</label>
+        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="question">Question</label><br>
+      <textarea name="question" class="form-control" id="question" cols="30" rows="4" placeholder="Your Question" required></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="category">Category</label>
+        <select id="category" class="form-control" required>
+          <option selected disabled>Choose Category...</option>
+          {% for category in category_list %}
+            <option value="{{ category }}">{{ category }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty" class="form-control" required>
+          <option selected disabled>Choose Difficulty...</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="answer1">Answer 1</label>
+        <input type="text" class="form-control" id="answer1" name="answer1" placeholder="Answer 1" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="answer2">Answer 2</label>
+        <input type="text" class="form-control" id="answer2" name="answer2" placeholder="Answer 2" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="answer3">Answer 3</label>
+        <input type="text" class="form-control" id="answer3" name="answer3" placeholder="Answer 3" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="answer4">Answer 4</label>
+        <input type="text" class="form-control" id="answer4" name="answer4" placeholder="Answer 4" required>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">Submit My Suggestion</button>
+    </div>
   </form>
+  </div>
 </div>
 {% endblock %}

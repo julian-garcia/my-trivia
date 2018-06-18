@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 from flask_login import current_user
@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 
 API_URL = 'https://opentdb.com/api.php?amount=1'
+API_CATEGORIES = 'https://opentdb.com/api_category.php'
 
 # Initialize Flask-SQLAlchemy
 db = SQLAlchemy(app)
@@ -68,12 +69,36 @@ def leader_board():
 @app.route('/suggestion', methods=['POST','GET'])
 def suggestion():
     if request.method == "POST":
-        flash("Thanks {}, we have received your suggestion".format(request.form["fullname"]))
+        message = "Thanks {}, we have received your suggestion".format(request.form["fullname"])
+    else:
+        message = ""
+
     if hasattr(current_user, 'username'):
         user = current_user.username
     else:
         user = ""
-    return render_template('suggestion.html', user = user, page_title = "My Trivia - Suggestion")
+    category_list = trivia.get_category_list(API_CATEGORIES)
+
+    return render_template('suggestion.html', user = user,
+                                              category_list = category_list,
+                                              message = message,
+                                              page_title = "My Trivia - Suggestion")
+
+@app.route('/contact', methods=['POST','GET'])
+def contact():
+    if request.method == "POST":
+        message = "Thanks {}, we have received your message".format(request.form["fullname"])
+    else:
+        message = ""
+
+    if hasattr(current_user, 'username'):
+        user = current_user.username
+    else:
+        user = ""
+
+    return render_template('contact.html', user = user,
+                                           message = message,
+                                           page_title = "My Trivia - Contact")
 
 if __name__ == "__main__":
     # int(os.getenv('PORT'))

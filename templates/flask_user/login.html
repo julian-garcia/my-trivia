@@ -3,9 +3,14 @@
 {% from "flask_user/_macros.html" import render_field, render_checkbox_field, render_submit_field %}
 {% from "_macros.html" import category_icon %}
 
+<div class="row justify-content-center mt-2">
+  <div class="col-12 col-md-8 text-center">
+    <p>Please sign in before you proceed to the quiz</p>
+  </div>
+</div>
 <div class="row section">
   <div class="col-12 col-md-4 section-col section-col--category">
-    {{ category_icon('Sign In', '<i class="fas fa-question"></i>') }}
+    {{ category_icon('Sign In', '<i class="fas fa-sign-in-alt"></i>') }}
   </div>
   <div class="col-12 col-md-4 section-col post-it-note">
     <img src="/static/images/pin.svg" class="pin">
@@ -43,7 +48,7 @@
       {# Submit button #} {{ render_submit_field(form.submit, tabindex=180) }}
     </form>
   </div>
-  <div class="col-12 col-md-4 section-col">
+  <div class="col-12 col-md-4 section-col text-center">
     {% if user_manager.USER_ENABLE_REGISTER and not user_manager.USER_REQUIRE_INVITATION %}
     <a href="{{ url_for('user.register') }}" tabindex='190'>
                 {%trans%}New here? Register.{%endtrans%}</a>

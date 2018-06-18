@@ -31,3 +31,9 @@
   background-color: $colour-home;
   color: #ffffff;
 }
+
+.section-col--score {
+  background-color: $colour-scores;
+  margin: 0 1rem;
+  border-bottom: 6px solid darken($colour-scores, 20%);
+}
