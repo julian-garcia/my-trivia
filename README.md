@@ -17,14 +17,26 @@ http://localhost:5000
 ```
 ## Deployment (Heroku)
 ```
-heroku git:clone -a my-trivia
+heroku login
+heroku apps:create my-app-name
+git push -u heroku master
 heroku ps:scale web=1
 ```
-Add ip 0.0.0.0/port 5000 config vars
-restart dynos
+Don't forget to add config vars: IP 0.0.0.0 and PORT 5000
+Restart dynos
 
 # Languages and Frameworks
-The python micro framework Flask was used to implement this trivia quiz app.
+The python micro framework Flask was used to implement this trivia quiz app. The
+following languages/libraries were used:
+- HTML5
+- CSS3
+- Javascript
+- jQuery 3.3.1
+- Python 3.6.5
+- SASS
+- Bootstrap 4
+- Fontawesome 5.0.13
+- Google fonts
 
 # Branding and Colour Scheme
 The colour scheme was set using Adobe Color CC ([color.adobe.com](https://color.adobe.com)), using
@@ -35,6 +47,7 @@ The wireframe xml file was generated using draw.io so to view the wireframes you
 should open the file "Mockup.xml" via [draw.io](https://draw.io).
 
 # Testing
+Unit testing results are in unit_tests.txt
 - [x] Question and answer is available
 - [x] Incorrect answer being correctly identified
 - [x] Category icon class corresponds to question category
