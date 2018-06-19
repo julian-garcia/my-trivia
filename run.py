@@ -109,5 +109,4 @@ def contact():
                                            page_title = "My Trivia - Contact")
 
 if __name__ == "__main__":
-    # int(os.getenv('PORT'))
-    app.run(host=os.getenv('IP'), port=5000, debug=True)
+    app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)

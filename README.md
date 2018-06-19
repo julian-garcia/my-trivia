@@ -5,7 +5,7 @@ answers, calculate a score for the user and display a top scorer league table.
 # Usage Instructions
 ## Installation
 ```
-git clone
+git clone https://github.com/julian-garcia/my-trivia.git
 source bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
@@ -16,6 +16,12 @@ python run.py
 http://localhost:5000
 ```
 ## Deployment (Heroku)
+```
+heroku git:clone -a my-trivia
+heroku ps:scale web=1
+```
+Add ip 0.0.0.0/port 5000 config vars
+restart dynos
 
 # Languages and Frameworks
 The python micro framework Flask was used to implement this trivia quiz app.

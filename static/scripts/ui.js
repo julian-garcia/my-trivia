@@ -12,6 +12,8 @@ $(document).ready(function() {
     $("main").css("min-height", min_content_height + "px");
   });
 
+  // Define the carousel and start looping through the slides automatically,
+  // pausing whilst hovering over the carousel and resuming whilst
   carousel();
   var loop_carousel = window.setInterval(function() {
                         $("#move-right").trigger("click");
@@ -28,6 +30,7 @@ $(document).ready(function() {
   });
 });
 
+// Using CSS hidden/active classes, maintain a single active or visible slide whilst hiding the rest
 function carousel() {
   $("#move-right").click(function() {
     var next_slide_id = "#" + $(".slide-active").next('.slide').attr("id");
