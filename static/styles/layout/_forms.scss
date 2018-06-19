@@ -7,6 +7,16 @@
   margin-bottom: .5rem;
 }
 
+.form-row {
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  &.form-row--suggestion {
+    padding: 10px;
+    background-color: $colour-suggestion;
+    border: 3px solid darken($colour-suggestion,10%);
+  }
+}
+
 textarea {
   width: 100%;
 }

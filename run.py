@@ -41,7 +41,11 @@ def index():
 
     qa_dict = trivia.get_question_answer(current_user.username, API_URL)
     cat_icon = trivia.choose_category_icon(qa_dict['category'])
-    latest_qa = trivia.read_user_question_answer(current_user.username)[-1]
+    all_qa = trivia.read_user_question_answer(current_user.username)
+    if all_qa == []:
+        latest_qa = []
+    else:
+        latest_qa = all_qa[-1]
 
     return render_template('index.html', user = current_user.username,
                                          question_answer = qa_dict,
@@ -53,7 +57,11 @@ def index():
 @login_required    # User must be authenticated
 def scores():
     scores = trivia.calculate_user_scores(current_user.username)
-    return render_template('scores.html', user = current_user.username, scores = scores,
+    latest_five = trivia.read_user_question_answer(current_user.username)[-5:]
+
+    return render_template('scores.html', user = current_user.username,
+                                          scores = scores,
+                                          latest_five = latest_five,
                                           page_title = "My Trivia - Scores")
 
 @app.route('/leaderboard')

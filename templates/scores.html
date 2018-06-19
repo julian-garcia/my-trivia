@@ -42,4 +42,35 @@
     <h5>{{ scores.other }}</h5>
   </div>
 </div>
+<div class="row section section-carousel">
+  <div class="col-12 col-md-3 text-center slide-arrow slide-arrow--left">
+    <i id="move-left" class="far fa-arrow-alt-circle-left"></i>
+  </div>
+  <div class="col-12 col-md-6 section-col text-center">
+    <h2>Scores for your last 5 Questions</h2>
+    {% if latest_five == [] %}
+      <h4>You haven't answered any questions yet!</h4>
+      <h3>0</h3>
+    {% endif %}
+    {% for question in latest_five %}
+      {% if loop.index == 1 %}
+        <div id="slide{{ loop.index }}" class="slide slide-active">
+      {% else %}
+        <div id="slide{{ loop.index }}" class="slide slide-hidden">
+      {% endif %}
+      <h4>{{ question[0] }}</h4>
+      {% if question[1] == question[4] %}
+        {% if question[3] == "easy" %}<h3>1 (correct answer: {{ question[1] }})</h3>{% endif %}
+        {% if question[3] == "medium" %}<h3>3 (correct answer: {{ question[1] }})</h3>{% endif %}
+        {% if question[3] == "hard" %}<h3>5 (correct answer: {{ question[1] }})</h3>{% endif %}
+      {% else %}
+        <h3>0 (correct answer: {{ question[1] }})</h3>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col-12 col-md-3 text-center slide-arrow slide-arrow--right">
+    <i id="move-right" class="far fa-arrow-alt-circle-right"></i>
+  </div>
+</div>
 {% endblock %}

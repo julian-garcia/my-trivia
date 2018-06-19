@@ -1,0 +1,44 @@
+.section-carousel {
+  background-color: $colour-scores;
+  min-height: 250px;
+
+  .slide-active {
+    display: block;
+    animation-name: fade-in;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .slide-hidden {
+    display: none;
+  }
+
+  .slide-arrow {
+    position: relative;
+    i {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 70px;
+    }
+    i:hover {
+      cursor: pointer;
+    }
+    #move-left {
+      right: 5%;
+    }
+    #move-right {
+      left: 5%;
+    }
+  }
+}

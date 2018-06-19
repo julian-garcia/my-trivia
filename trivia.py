@@ -43,7 +43,7 @@ def commit_user_data(username):
 
 def get_category_list(api_url):
     '''
-    Get category list - to be used to build a drop down in the suggestions form
+    Get category list - used to build a drop down in the suggestions form
     '''
     categories = []
     json_data = requests.get(api_url).json()

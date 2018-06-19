@@ -26,10 +26,12 @@
   <div class="col-12 col-md-4 text-center prev_answer">
     <h3 class="footer-heading">Your Answer</h3>
     <p>{{ latest_qa[4] }}<br>
-    {% if latest_qa[1] == latest_qa[4] %}
-      <i class="fas fa-check"></i>
-    {% else %}
-      <i class="fas fa-times"></i>
+    {% if latest_qa != [] %}
+      {% if latest_qa[1] == latest_qa[4] %}
+        <i class="fas fa-check"></i>
+      {% else %}
+        <i class="fas fa-times"></i>
+      {% endif %}
     {% endif %}
     </p>
   </div>

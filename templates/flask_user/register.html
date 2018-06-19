@@ -5,7 +5,7 @@
 
 <div class="row justify-content-center mt-2">
   <div class="col-12 col-md-8 text-center">
-    <p>Please register before you proceed to the quiz</p>
+    <p>Please register before we take you to the quiz</p>
   </div>
 </div>
 <div class="row section">
@@ -37,7 +37,7 @@
   </div>
   <div class="col-12 col-md-4 section-col text-center">
     {% if user_manager.USER_ENABLE_REGISTER %}
-        <a href="{{ url_for('user.login') }}" tabindex='290'>
+        <a class="sign-in-register" href="{{ url_for('user.login') }}" tabindex='290'>
         {%trans%}Already registered? Sign in.{%endtrans%}</a>
     {% endif %}
   </div>

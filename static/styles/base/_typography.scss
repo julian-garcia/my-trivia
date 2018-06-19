@@ -13,7 +13,6 @@ textarea,
 p,
 span, table, button {
   font-family: $base-font-family-title;
-  // font-size: 1rem;
 }
 
 .section-col--category i {
@@ -22,10 +21,26 @@ span, table, button {
 
 .answers-form label {
   font-size: 20px;
+  line-height: 23px;
 }
 
 .prev_answer i {
   font-size: 40px;
+}
+
+.quiz-container {
+  a {
+    color: $colour-leaderboard;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000;
+  }
+  a:hover {
+    color: $colour-home;
+    text-decoration: none;
+  }
+  a.sign-in-register {
+    font-size: 1.25rem;
+  }
 }
 
 .site-title {
