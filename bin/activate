@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/Cerberus/my-trivia"
+VIRTUAL_ENV="/Users/Cerberus/projects/my-trivia"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
