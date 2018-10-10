@@ -15,6 +15,12 @@ span, table, button {
   font-family: $base-font-family-title;
 }
 
+.alert-message {
+  background-color: $colour-scores;
+  padding: 10px;
+  text-align: center;
+}
+
 .section-col--category i {
   font-size: 80px;
 }

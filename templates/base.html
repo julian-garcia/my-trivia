@@ -43,11 +43,6 @@
         <li class="nav-item nav-item--home">
           <a class="nav-item nav-link nav-link--home" href="/"><i class="fas fa-home"></i></a>
         </li>
-        <li class="nav-item nav-item--signin">
-          {% if user|length == 0 %}
-          <a class="nav-link nav-link--signin" href="/user/sign-in">Sign In</a> {% else %}
-          <a class="nav-link nav-link--signin" href="/user/sign-out">Sign Out</a> {% endif %}
-        </li>
         <li class="nav-item nav-item--leaderboard">
           <a class="nav-link nav-link--leaderboard" href="/leaderboard">Leader Board</a>
         </li>
@@ -56,6 +51,11 @@
         </li>
         <li class="nav-item nav-item--suggestion">
           <a class="nav-link nav-link--suggestion" href="/suggestion">Suggest a Question</a>
+        </li>
+        <li class="nav-item nav-item--signin">
+          {% if user|length == 0 %}
+          <a class="nav-link nav-link--signin" href="/user/sign-in">Sign In</a> {% else %}
+          <a class="nav-link nav-link--signin" href="/user/sign-out">Sign Out</a> {% endif %}
         </li>
         <li class="nav-item nav-item--contact">
           <a class="nav-link nav-link--contact" href="/contact"><i class="far fa-envelope"></i></a>

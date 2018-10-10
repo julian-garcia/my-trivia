@@ -33,11 +33,16 @@ user_manager = UserManager(app, db, User)
 @app.route('/', methods=['POST','GET'])
 @login_required    # User must be authenticated
 def index():
+    alert_message = ''
     # Check user supplied answer and save if correct or render on screen if incorrect
     if request.method == "POST":
-        trivia.save_user_answer(current_user.username,
-                                request.form["answers"])
-        trivia.commit_user_data(current_user.username)
+        # Account for no answer being provided, in which case we loop until one is provided
+        if 'answers' in request.form:
+            trivia.save_user_answer(current_user.username,
+                                    request.form["answers"])
+            trivia.commit_user_data(current_user.username)
+        else:
+            alert_message = 'No answer - Question skipped. Please choose an answer'
 
     qa_dict = trivia.get_question_answer(current_user.username, API_URL)
     cat_icon = trivia.choose_category_icon(qa_dict['category'])
@@ -51,6 +56,7 @@ def index():
                                          question_answer = qa_dict,
                                          cat_icon = cat_icon,
                                          latest_qa = latest_qa,
+                                         alert_message = alert_message,
                                          page_title = "My Trivia")
 
 @app.route('/scores')

@@ -12,6 +12,9 @@
   <div class="col-12 col-md-4 section-col section-col--answers">
     {{ answer_form(question_answer['question'], question_answer['category'],
                    question_answer['difficulty'], question_answer['all_answers']) }}
+    {% if alert_message != "" %}
+    <h4 class="alert-message">{{ alert_message }}</h4>
+    {% endif %}
   </div>
 </div>
 <div class="row section section--prev-question justify-content-center pl-0 pl-md-5 pr-0 pr-md-5">
