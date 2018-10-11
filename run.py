@@ -42,7 +42,7 @@ def index():
                                     request.form["answers"])
             trivia.commit_user_data(current_user.username)
         else:
-            alert_message = 'No answer - Question skipped. Please choose an answer'
+            alert_message = 'No answer provided - Question skipped'
 
     qa_dict = trivia.get_question_answer(current_user.username, API_URL)
     cat_icon = trivia.choose_category_icon(qa_dict['category'])
@@ -51,6 +51,18 @@ def index():
         latest_qa = []
     else:
         latest_qa = all_qa[-1]
+
+    if alert_message == '':
+        if latest_qa[1] == latest_qa[4]:
+            if 'answers' in request.form:
+                alert_message = 'Correct!'
+            else:
+                alert_message = ''
+        else:
+            if 'answers' in request.form:
+                alert_message = 'Incorrect, better luck next time...'
+            else:
+                alert_message = ''
 
     return render_template('index.html', user = current_user.username,
                                          question_answer = qa_dict,
