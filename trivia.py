@@ -1,5 +1,10 @@
-import os, requests, html, random, pickle, glob
+import os, requests, html, random, pickle, glob, json
 from operator import itemgetter
+
+def user_logged_in(user):
+    if hasattr(user, 'username'):
+        return user.username
+    return ''
 
 def save_question_answer(username, question, actual_answer, category, difficulty):
     '''
@@ -85,6 +90,12 @@ def get_question_answer(username, api_url):
         save_question_answer(username, question_answer['question'],
                              question_answer['correct_answer'],question_answer['category'],
                              question_answer['difficulty'])
+
+        # Cache this latest question, category and all answers to retrieve
+        # it if the user posts without selecting an answer
+        with open("data/" + username + "_cache.txt", "w") as cachefile:
+            json.dump(question_answer, cachefile)
+
     return question_answer
 
 def calculate_user_scores(username):
@@ -173,7 +184,7 @@ def leader_board(n):
     '''
     top_scores = []
     for filename in glob.iglob('data/*.txt'):
-        if "_current" not in filename:
+        if "_current" not in filename and "_cache" not in filename:
             uname = filename.split('/')[1].split('.')[0]
             uscore = calculate_user_scores(uname)['overall']
             top_scores.append({"username":uname, "score":uscore})

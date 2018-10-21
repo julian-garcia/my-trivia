@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 from flask_login import current_user
-import os, trivia
+import os, trivia, json
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
@@ -42,17 +42,37 @@ def index():
                                     request.form["answers"])
             trivia.commit_user_data(current_user.username)
         else:
-            alert_message = 'No answer provided - Question skipped'
+            # If no answer has been provided then, instead of re-querying the API
+            # for another question, retrieve the latest question and answer from
+            # a file based cache of the most recently asked question.
+            with open('data/' + current_user.username + '_cache.txt', 'r') as cached_qa:
+                qa_dict = json.load(cached_qa)
+
+            cat_icon = trivia.choose_category_icon(qa_dict['category'])
+            all_qa = trivia.read_user_question_answer(current_user.username)
+            if all_qa == []:
+                latest_qa = []
+            else:
+                latest_qa = all_qa[-1]
+
+            alert_message = 'No answer provided, please try again'
+            return render_template('index.html', user = current_user.username,
+                                                 question_answer = qa_dict,
+                                                 cat_icon = cat_icon,
+                                                 latest_qa = latest_qa,
+                                                 alert_message = alert_message,
+                                                 page_title = "My Trivia")
 
     qa_dict = trivia.get_question_answer(current_user.username, API_URL)
     cat_icon = trivia.choose_category_icon(qa_dict['category'])
     all_qa = trivia.read_user_question_answer(current_user.username)
+
     if all_qa == []:
         latest_qa = []
     else:
         latest_qa = all_qa[-1]
 
-    if alert_message == '':
+    if alert_message == '' and latest_qa != []:
         if latest_qa[1] == latest_qa[4]:
             if 'answers' in request.form:
                 alert_message = 'Correct!'
@@ -85,10 +105,7 @@ def scores():
 @app.route('/leaderboard')
 def leader_board():
     top_scores = trivia.leader_board(5)
-    if hasattr(current_user, 'username'):
-        user = current_user.username
-    else:
-        user = ""
+    user = trivia.user_logged_in(current_user)
     return render_template('leader_board.html', user = user, top_scores = top_scores,
                                                 page_title = "My Trivia - Leader Board")
 
@@ -99,10 +116,7 @@ def suggestion():
     else:
         message = ""
 
-    if hasattr(current_user, 'username'):
-        user = current_user.username
-    else:
-        user = ""
+    user = trivia.user_logged_in(current_user)
     category_list = trivia.get_category_list(API_CATEGORIES)
 
     return render_template('suggestion.html', user = user,
@@ -117,11 +131,7 @@ def contact():
     else:
         message = ""
 
-    if hasattr(current_user, 'username'):
-        user = current_user.username
-    else:
-        user = ""
-
+    user = trivia.user_logged_in(current_user)
     return render_template('contact.html', user = user,
                                            message = message,
                                            page_title = "My Trivia - Contact")

@@ -2,7 +2,16 @@
 {% block content %}
 {% from "_macros.html" import category_icon, question, answer_form %}
 
-<div class="row section">
+<div class="row section mb-0">
+  <div class="col-md-6 mx-auto text-center">
+    <h4>
+      <a href="#" data-toggle="modal" data-target="#lastanswerModal">
+        My Last Answer... <i class="fas fa-history"></i>
+      </a>
+    </h4>
+  </div>
+</div>
+<div class="row section mt-0">
   <div class="col-12 col-md-4 section-col section-col--category">
     {{ category_icon(question_answer['category'], cat_icon) }}
   </div>
@@ -39,5 +48,33 @@
     </p>
   </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="lastanswerModal" tabindex="-1" role="dialog" aria-labelledby="lastanswerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">My Last Answer</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Previous Question</h3>
+        <p>{{ latest_qa[0] }}</p>
+        <h3>Correct Answer</h3>
+        <p>{{ latest_qa[1] }}</p>
+        <h3>Your Answer</h3>
+        <p>{{ latest_qa[4] }}
+          {% if latest_qa != [] %}
+            {% if latest_qa[1] == latest_qa[4] %}
+              <i class="fas fa-check"></i>
+            {% else %}
+              <i class="fas fa-times"></i>
+            {% endif %}
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
