@@ -59,6 +59,7 @@
         </button>
       </div>
       <div class="modal-body">
+        {% if latest_qa != [] %}
         <h3>Previous Question</h3>
         <p>{{ latest_qa[0] }}</p>
         <h3>Correct Answer</h3>
@@ -73,6 +74,9 @@
             {% endif %}
           {% endif %}
         </p>
+        {% else %}
+        <p>You haven't answered any questions yet. This will show your latest answer alongside the correct answer</p>
+        {% endif %}
       </div>
     </div>
   </div>
