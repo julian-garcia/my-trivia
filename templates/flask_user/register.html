@@ -13,8 +13,8 @@
     {{ category_icon('Register', '<i class="far fa-user"></i>') }}
   </div>
   <div class="col-12 col-md-4 section-col post-it-note">
-    <img src="/static/images/pin.svg" class="pin">
-    <form action="" method="POST" novalidate formnovalidate class="form" role="form">
+    <img src="/static/images/pin.svg" class="pin" alt="pin">
+    <form method="POST" novalidate class="form">
         {{ form.hidden_tag() }}
         {# Username or Email #}
         {% set field = form.username if user_manager.USER_ENABLE_USERNAME else form.email %}

@@ -13,8 +13,8 @@
     {{ category_icon('Sign In', '<i class="fas fa-sign-in-alt"></i>') }}
   </div>
   <div class="col-12 col-md-4 section-col post-it-note">
-    <img src="/static/images/pin.svg" class="pin">
-    <form action="" method="POST" class="form" role="form">
+    <img src="/static/images/pin.svg" alt="pin" class="pin">
+    <form method="POST" class="form">
       {{ form.hidden_tag() }} {# Username or Email field #}
       {% set field = form.username if user_manager.USER_ENABLE_USERNAME else form.email %}
       {% if field.errors %}

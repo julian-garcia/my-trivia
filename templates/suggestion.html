@@ -22,7 +22,7 @@
       <div class="form-group col-md-6">
         <label for="category">Category</label>
         <select id="category" class="form-control" required>
-          <option selected disabled>Choose Category...</option>
+          <option selected disabled label="Category"></option>
           {% for category in category_list %}
             <option value="{{ category }}">{{ category }}</option>
           {% endfor %}
@@ -31,7 +31,7 @@
       <div class="form-group col-md-6">
         <label for="difficulty">Difficulty</label>
         <select id="difficulty" class="form-control" required>
-          <option selected disabled>Choose Difficulty...</option>
+          <option selected disabled label="Difficulty"></option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
